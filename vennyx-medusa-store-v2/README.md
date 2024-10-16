@@ -32,6 +32,12 @@
   </a>
 </p>
 
+## !!!EREN!!!
+
+yarn install (first run)
+
+username: jescado@gmail.com, password: GRW4WHxXbSSu55K
+
 ## Compatibility
 
 This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 

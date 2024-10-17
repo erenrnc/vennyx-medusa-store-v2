@@ -204,8 +204,7 @@ const CustomPage = () => {
 }
 
 export const config = defineRouteConfig({
-    label: "Pokemons",
-    //icon: ChatBubbleLeftRight,
+    label: "Pokemons"
 })
 
 export default CustomPage

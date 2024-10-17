@@ -1,18 +1,23 @@
+﻿import { Pokeitem } from "../../../modules/models/pokemonItem"
+import { StepInput } from "../../../modules/models/stepInput";
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
-
-type StepInput = {
-    name: string;
-    img: string;
-    type: string;
-} | {
-    name: string;
-    img: string;
-    type: string;
-    }[];
+import { InjectManager } from "@medusajs/utils";
+import { EntityManager } from "@mikro-orm/core";
 
 export const step2 = createStep(
     "step-2",
-    async (input: StepInput) => {
-        return new StepResponse(`Hello ${input[0].name} from step two!`)
+    async (input: StepInput, { container }) => {
+        try {
+            const postModuleService = container.resolve("postModuleService");
+            console.log(input);
+            const existingItem = await postModuleService.createItem(input);
+            if (existingItem.length !== 0) {
+                return new StepResponse(`Kaydetme yapıldı`)
+            } else {
+                return new StepResponse(`Kaydetme yapılamadı`)
+            }
+        } catch (error) {
+            return new StepResponse(`Error while checking item: ${error.message}`)
+        }
     }
 )

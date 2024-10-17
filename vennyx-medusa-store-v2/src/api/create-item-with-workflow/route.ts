@@ -3,7 +3,7 @@ import type {
     MedusaResponse,
 } from "@medusajs/framework/http"
 import myWorkflow from "../../workflows/pokemon"
-
+import PostModuleService from "../../modules/post/service";
 export async function POST(
     req: MedusaRequest,
     res: MedusaResponse
@@ -16,7 +16,7 @@ export async function POST(
 
     const { result } = await myWorkflow(req.scope)
         .run({
-            input: items,
+            input: items
         })
 
     res.send(result)

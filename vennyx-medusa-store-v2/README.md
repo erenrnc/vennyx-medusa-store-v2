@@ -40,6 +40,10 @@ username: jescado@gmail.com, password: GRW4WHxXbSSu55K
 
 it fails on windows, use direct ubuntu or ubuntu on wsl
 
+.env 
+DB_NAME=medusa-vennyx-medusa-store-v2
+DATABASE_URL=postgres://postgres:j2sc0d14@192.168.0.2/$DB_NAME
+
 ## Compatibility
 
 This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 

@@ -11,7 +11,7 @@ export async function GET(
 
     const parseQueryParam = (param: string | string[] | undefined): number => {
         if (Array.isArray(param)) {
-            param = param[0]; // If array, use the first element
+            param = param[0];
         }
         return param && !isNaN(Number(param)) ? parseInt(param, 10) : undefined;
     };
@@ -19,7 +19,5 @@ export async function GET(
     const limit = parseQueryParam(req.query?.limit as string | string[]) || 20;
     const offset = parseQueryParam(req.query?.offset as string | string[]) || 0;
 
-    res.json({
-        message: await postModuleService.getMessage(limit, offset),
-    })
+    res.json(JSON.parse(await postModuleService.getMessage(limit, offset)))
 }

@@ -8,8 +8,8 @@ export async function GET(
     const postModuleService: PostModuleService = req.scope.resolve("postModuleService")
 
     try {
-        const itemsCount = await postModuleService.getItems();
-        res.status(200).json({ count: itemsCount });
+        const items= await postModuleService.getItems();
+        res.status(200).json(items);
     } catch (error) {
         console.error("Item'lar? çekerken hata olu?tu:", error);
         res.status(500).json({ error: error.message });

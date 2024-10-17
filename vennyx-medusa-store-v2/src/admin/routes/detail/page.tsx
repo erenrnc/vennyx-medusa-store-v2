@@ -57,7 +57,7 @@ const DetailPage = () => {
 
 
 export const config = defineRouteConfig({
-    label: "Saved Pokemons",
+    label: "Saved Pokemons"
 })
 
 export default DetailPage

@@ -90,6 +90,34 @@ const CustomPage = () => {
         }
     };
 
+    const handleSaveWorkflow = async () => {
+
+        const selectedPokemons = [];
+
+        for (const name in selectedCheckboxes) {
+            if (selectedCheckboxes[name]) {
+                const details = await handleViewMore(name, 1);
+                if (details) {
+                    selectedPokemons.push({
+                        name: details.name,
+                        img: details.img,
+                        type: details.type
+                    });
+                }
+            }
+        }
+
+        try {
+            await axios.post("http://localhost:9000/create-item-with-workflow", selectedPokemons);
+            alert("Selected Pokémon saved successfully!");
+            fetchPokemons();
+            setSelectedCheckboxes({});
+        } catch (error) {
+            console.error("Error saving selected Pokémon:", error);
+            alert("Failed to save selected Pokémon.");
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -112,30 +140,43 @@ const CustomPage = () => {
                 ))}
             </div>
 
-            {/* Kaydet Butonu */}
             <button
                 onClick={handleSave}
                 style={{
                     marginTop: '20px',
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    padding: '10px 20px',
-                    border: 'none',
+                    backgroundColor: '#007bff', 
+                    color: 'white', 
+                    padding: '10px 20px', 
+                    border: 'none', 
                     borderRadius: '5px',
                     cursor: 'pointer',
+                    marginRight:'20px'
                 }}
             >
                 Save
             </button>
 
-            {/* Pagination Controls */}
+            <button
+                onClick={handleSaveWorkflow}
+                style={{
+                    marginTop: '20px',
+                    backgroundColor: '#ee0b0b', 
+                    color: 'white', 
+                    padding: '10px 20px', 
+                    border: 'none', 
+                    borderRadius: '5px', 
+                    cursor: 'pointer',
+                }}
+            >
+              Workflow Save
+            </button>
+
             <div className="pagination-controls" style={{ marginTop: '10px' }}>
                 <button disabled={offset === 0} onClick={() => setOffset(offset - limit)}>Previous</button>
                 <span> Page {Math.ceil(offset / limit) + 1} of {Math.ceil(totalCount / limit)} </span>
                 <button disabled={(offset + limit) >= totalCount} onClick={() => setOffset(offset + limit)}>Next</button>
             </div>
 
-            {/* Modal */}
             {showModal && (
                 <div className="modal">
                     <div className="modal-content">
